@@ -35,7 +35,7 @@ font-family: 'Fjalla One', sans-serif;
 font-size:35px;
 color:#fff;
 position:absolute;
-top:1005px;
+top:20px;
 left:7%;
 }
 
@@ -61,9 +61,7 @@ text-align:center;
 
 .topmenu{margin-left:10%;}
 
-#page{
-	margin-top:1000px	;
-}
+
 
 /*------------------Arrow image styling for click here ----------------*/
 
@@ -92,5 +90,10 @@ text-align:center;
 /*------------------Main top menu-------------*/
 #tops {
 	background: #395870;
+}
+
+#footer {
+	background: #395870;
+	height:200px;
 }
 
