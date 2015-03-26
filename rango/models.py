@@ -26,3 +26,12 @@ class UserProfile(models.Model):
         return self.user.username
 
 
+class CategoryComment(models.Model):
+    comment=models.CharField(max_length=100)
+    category=models.ForeignKey(Category)  
+
+    def __unicode__(self):
+        return self.comment
+       
+
+

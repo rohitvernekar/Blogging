@@ -12,4 +12,5 @@ urlpatterns = patterns('',
         url(r'^restricted/$', views.restricted,name='restricted'),
         url(r'^logout/$', views.user_logout, name='logout'),
         url(r'^category/(?P<category_name>\w+)/likes/$', views.add_likes, name='category likes'),
+        url(r'^category/(?P<category_name>\w+)/comment/$', views.add_comment, name="comment"),
     )

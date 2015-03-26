@@ -23,9 +23,11 @@
             {% endif %}
             <a href="/rango/category/{{category_name}}/likes/">Like</a></br></br>
             <a href="/rango/category/{{ category_name }}/add_page/"> Add a new page for {{ category_name }}</a></br>
-
-            Comment:<textarea></textarea>>
+            
 
             
             {% endif %}
 {% endblock %}
+ <div>
+         {% block comment_block %}{% endblock %}
+</div>

@@ -179,3 +179,20 @@ def add_likes(request, category_name):
     return render_to_response('rango/category.html',context_dict,context)
 
 
+def add_comment(request):
+    context=RequestContext(request)
+
+    if request.method == 'POST':
+        form = CategoryCommentForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+
+            return index(request)
+        else:
+            print form.errors
+
+    else:
+        form = CategoryCommentForm()
+
+    return render_to_response('rango/category.html', {'form':form}, context)    

@@ -1,5 +1,5 @@
 from django import forms
-from rango.models import Page, Category, UserProfile
+from rango.models import Page, Category, UserProfile, CategoryComment
 from django.contrib.auth.models import User
 
 class CategoryForm(forms.ModelForm):
@@ -10,6 +10,7 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         # Association between model and ModelForm
         model = Category
+        fields=('name',)
 
 class PageForm(forms.ModelForm):
     title = forms.CharField(max_length=128, help_text="Please enter the title")
@@ -41,3 +42,9 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('website', 'picture')
 
+class CategoryCommentForm(forms.ModelForm):
+    comment=forms.CharField(max_length=120,help_text="Please enter the comment")
+    title=forms.CharField(max_length=120)
+    class Meta:
+        model = CategoryComment
+        fields=('comment','title')
