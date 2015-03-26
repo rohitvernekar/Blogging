@@ -1,7 +1,10 @@
-{% extends 'rango/category.html' %}
-{% block title %}{{ category_name }} {% endblock%}
-{% block comment_block %}
-<form id="comment_form "method="post" action="/rango/category/{{ category_name }}/comment" enctype="multipart/form-data">
+<!DOCTYPE html>
+<html>
+    <head><title>Rango</title>
+    </head>
+    <body>
+        <h1> Add a comment</h1>
+<form id="comment_form "method="post" action="/rango/category/{{ category_name }}/comment/" enctype="multipart/form-data">
             {% csrf_token %}
              {% for field in form.visible_fields %}
                 {{ field.errors }}
@@ -9,5 +12,8 @@
                 {{ field }}
             {% endfor %}
          <input type="submit" name="submit" value="Submit"/>
+
 </form>
-{% endblock %}
+    </body>
+</html>
+
