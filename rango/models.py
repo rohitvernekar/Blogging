@@ -28,10 +28,11 @@ class UserProfile(models.Model):
 
 class CategoryComment(models.Model):
     comment=models.CharField(max_length=100)
-    category=models.ForeignKey(Category)  
+    category=models.ForeignKey(Category,null=True)
+    title=models.CharField(max_length=100,default="null")
 
     def __unicode__(self):
         return self.comment
-       
+
 
 
