@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from rango.models import Category, Page
 from rango.forms import CategoryForm, PageForm
-from rango.forms import UserForm, UserProfileForm
+from rango.forms import UserForm, UserProfileForm, CategoryCommentForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
@@ -96,12 +96,12 @@ def register(request):
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
         profile_form = UserProfileForm(data=request.POST)
-        
+
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
             user.save()
-             
+
             profile=profile_form.save(commit=False)
             profile.user = user
 
@@ -140,7 +140,7 @@ def user_login(request):
                 #index(request)
                 #return render_to_response('rango/index.html',{'user':user.is_active},context)
             else:
-                return HttpResponse("Your Rango account is disabled.")    
+                return HttpResponse("Your Rango account is disabled.")
         else:
             return HttpResponse("Invalid login details supplied")
     else:
@@ -158,7 +158,7 @@ def user_logout(request):
 def add_likes(request, category_name):
     context = RequestContext(request)
     category_name = decode_url(category_name)
-    
+
     context_dict = {'category_name': category_name}
     try:
         category = Category.objects.get(name=category_name)
@@ -179,8 +179,12 @@ def add_likes(request, category_name):
     return render_to_response('rango/category.html',context_dict,context)
 
 
-def add_comment(request):
+def add_comment(request, category_name):
     context=RequestContext(request)
+    category_name = decode_url(category_name)
+
+    context_dict = {'category_name': category_name}
+
 
     if request.method == 'POST':
         form = CategoryCommentForm(request.POST)
@@ -194,5 +198,6 @@ def add_comment(request):
 
     else:
         form = CategoryCommentForm()
+        context_dict['form']=form
 
-    return render_to_response('rango/category.html', {'form':form}, context)    
+    return render_to_response('rango/comment.html', context_dict, context)
