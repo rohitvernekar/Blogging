@@ -40,7 +40,7 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('website', 'picture')
+        fields = ('website', 'picture','Address')
 
 class CategoryCommentForm(forms.ModelForm):
     comment=forms.CharField(max_length=100,help_text="Please enter the comment")

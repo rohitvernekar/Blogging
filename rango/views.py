@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from rango.models import Category, Page
+from rango.models import Category, Page , UserProfile , User
 from rango.forms import CategoryForm, PageForm
 from rango.forms import UserForm, UserProfileForm, CategoryCommentForm
 from django.contrib.auth import authenticate, login, logout
@@ -201,3 +201,28 @@ def add_comment(request, category_name):
         context_dict['form']=form
 
     return render_to_response('rango/comment.html', context_dict, context)
+
+
+
+def user_details(request):
+    context_dict={}
+    context = RequestContext(request)
+    print context
+    import pdb
+    username = context.get('user',None).username
+    print username
+    userobj = User.objects.get(username=username)
+    name = userobj.username
+    email = userobj.email
+    userprofobj =  UserProfile.objects.get(user_id=userobj.id)
+    website=userprofobj.website
+    Address = userprofobj.Address
+
+    context_dict['user_name']= name
+    context_dict['user_email']=email
+    context_dict['user_website']=website
+    context_dict['user_address']=Address
+
+    return render_to_response('rango/get_user_details.html', context_dict, context)
+
+

@@ -18,9 +18,11 @@ class Page(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.ForeignKey(User)
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images',blank=True)
+    Address=models.TextField(default="Enter your address")
+
 
     def __unicode__(self):
         return self.user.username
