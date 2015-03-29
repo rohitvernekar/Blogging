@@ -18,14 +18,14 @@
 
 
             {% if user.is_authenticated %}
-            {% if likes %} 
+            {% if likes %}
                 </br><strong> {{ likes }} person likes this <strong>
             {% endif %}
             <a href="/rango/category/{{category_name}}/likes/">Like</a></br></br>
             <a href="/rango/category/{{ category_name }}/add_page/"> Add a new page for {{ category_name }}</a></br>
-            
 
-            
+
+
             {% endif %}
 {% endblock %}
  <div>
