@@ -120,6 +120,7 @@ def register(request):
         profile_form=UserProfileForm()
 
 
+
     return render_to_response(
             'rango/register.html',
             {'user_form': user_form, 'profile_form':profile_form,'registered':registered},
@@ -160,17 +161,32 @@ def add_likes(request, category_name):
     category_name = decode_url(category_name)
 
     context_dict = {'category_name': category_name}
+
+
     try:
-        category = Category.objects.get(name=category_name)
-        pages=Page.objects.filter(category=category)
-        context_dict['pages'] = pages
-        context_dict['category'] = category
-        context_dict['user']=context['user']
-        count=category.likes
-        count+=1
-        category.likes=count
-        category.save()
-        context_dict['likes']=count
+        user=User.objects.get(username=request.user)
+        user_id=user.id
+        profile=UserProfile.objects.get(user_id=user.id)
+        liked=profile.Liked
+        if not liked:
+            category = Category.objects.get(name=category_name)
+            pages=Page.objects.filter(category=category)
+            context_dict['pages'] = pages
+            context_dict['category'] = category
+            context_dict['user']=context['user']
+            count=category.likes
+            count+=1
+            category.likes=count
+            category.save()
+            context_dict['likes']=count
+        else:
+            category = Category.objects.get(name=category_name)
+            pages=Page.objects.filter(category=category)
+            context_dict['pages'] = pages
+            context_dict['category'] = category
+            context_dict['user']=context['user']
+            count=category.likes
+            context_dict['likes']=count
 
     except Category.DoesNotExist:
         pass

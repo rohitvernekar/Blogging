@@ -22,7 +22,7 @@ class UserProfile(models.Model):
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images',blank=True)
     Address=models.TextField(default="Enter your address")
-
+    Liked = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.user.username
