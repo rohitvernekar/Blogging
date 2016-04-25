@@ -8,6 +8,7 @@
         <link href="{{ STATIC_URL }}css/signin.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="{{ STATIC_URL }}js/register.js"></script>
 </head>
 <body>
     <h1>Register with Rango</h1>
@@ -16,25 +17,16 @@
         <a href="/rango/">Return home page</a>
     {% else %}
         Rango says:<strong>Register here!</strong></br>
-<!--    <form id="user_form" method="post" action='/rango/register/' enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ user_form.as_p }}
-    	{{ profile_form.as_p }}
-
-    	<input type="submit" name="submit" value="Register"/>
-    </form>
     {% endif %}
--->
 <div class="container">
-<!--<div class="row"> -->
             <div class="panel panel-primary">
                 <div class="panel-body">
-    <form method="POST" action='/rango/register/' role="form" enctype="multipart/form-data">
+    <form method="POST" action='/rango/register/' role="form" enctype="multipart/form-data" onsubmit="return validatePassword(this);">
         {% csrf_token %}
         <div class="form-group">
             <h2>Create Account</h2>
         </div>
-
+        <div id="div_id_username"></div>
         <div class="form-group">
         {{ user_form.username.errors }}
         <label class="control-label" for="signupName">Your Name</label>
@@ -47,19 +39,18 @@
             <label class="control-label" for="signupEmail"> Email </label>
                 {{user_form.email}}
         </div>
-
+        <div id="div_id_password"></div>
         <div class="form-group">
            {{ user_form.password.errors }}
             <label class="control-label" for="signupPassword"> password </label>
-            <!--<input id="password" type="text" maxlength="50" class="form-control" placeholder="Atleast 6 characters">-->
            {{ user_form.password }}
         </div>
         <div class="form-group">
             {{ user_form.repassword.errors}}
             <label class="control-label" for="signupEmail"> Password again </label>
-            <!--<input id="passwordagain" type="text" maxlength="50" class="form-control" placeholder="Enter atleast 6 characters">-->
             {{user_form.repassword}}
         </div>
+
     <div class="form-group">
         <button id="signupSubmit" type="submit" class="btn btn-info btn-success">Create your account</button>
     </div>
