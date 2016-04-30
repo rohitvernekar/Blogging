@@ -1,16 +1,89 @@
 <!DOCTYPE html>
-{% load static %} <!-- New line -->
+{% load static %}
 <html>
 
     <head>
         <title> Rango </title>
-        <link rel="StyleSheet" type="text/css" href="{{ STATIC_URL }}css/index.css" />
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/css/index.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     </head>
-
     <body>
+    <!-- <div>
+        <ul>
+             <li class="active"><a href="#home">Home</a></li>
+             <li><a href="#aboutus">About Us       </a></li>
+             <li class="dropdown"><a href="#home">What we do</a>
+             <div class="dropdown-content">
+                 <a href="#">Products</a>
+                 <a href="#">Services</a>
+                 <a href="#">Careers</a>
+             </div>
+             </li>
+             <li><a href="#contact">Contact</a></li>
+             {% if user.is_authenticated %}
+             <li><a href="/rango/logout/">LogOut</a></li>
+             {% else %}
+             <li><a href="/rango/login/">Login</a></li>
+             <li><a href="/rango/register/">SignUp</a></li>
+            {% endif %}
+        </ul>
+    </div> -->
+    <nav class = "navbar navbar-inverse" role = "navigation">
+
+   <div class = "navbar-header">
+      <a class = "navbar-brand" href = "#">QuestionFeed</a>
+   </div>
+
+   <div>
+      <ul class = "nav navbar-nav">
+         <li class = "active"><a href = "#">Home</a></li>
+         <li class = "dropdown">
+            <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">
+               What we do
+               <b class = "caret"></b>
+            </a>
+
+            <ul class = "dropdown-menu">
+               <li><a href = "#">Products</a></li>
+               <li><a href = "#">Services</a></li>
+               <li><a href = "#">Careers</a></li>
+            </ul>
+
+         </li>
+         <li><a href="#contact">Contact Us</a></li>
+         {% if user.is_authenticated %}
+             <li><a href="/rango/logout/">LogOut</a></li>
+             {% else %}
+             <li><a href="/rango/login/">Login</a></li>
+             <li><a href="/rango/register/">SignUp</a></li>
+         {% endif %}
+      </ul>
+   </div>
+
+</nav>
+
+    <div class="container">
+        <ul class="pagination pull-right">
+        <li><a href="#">Questions</a></li>
+        <li><a href="/rango/users">Users</a></li>
+        <li><a href="#">Tags</a></li>
+        <li><a href="#">Ask Question</a></li>
+        </ul>
+    </div>
+
+    <div>
+    {% for user in users%}
+        <ul>
+        <li><a href="/users/{{ user.id }}/{{ user.username }}">{{ user.username }}</a>
+        </li>
+        </ul>
+    {% endfor %}
+    </div>
         <!--<a href="#menu"><div class="bogocircle"><div class="blog">Rohit Blog</div></div></a>
         <a href="#menu"><div class="arrow">Click <br>Here</div> -->
-
+        <!--
         <div  id="page" align="center">
         <a name="menu"></a>
             <div id="tops">
@@ -27,6 +100,9 @@
                 <tr>
             <th scope="col" colspan="2">
             <a class="astyle" href="/rango/about/">About</a>
+            </th>
+            <th scope="col" colspan="2">
+            <a class="astyle" href="#">What we do</a>
             </th>
             <th scope="col">
             <a class="astyle" href="/rango/about/">Contact</a>
@@ -74,7 +150,7 @@
 
 <div id="footer" align="down">
 <a href="/rango/">Down</a>
-
+-->
     </body>
 
 </html>

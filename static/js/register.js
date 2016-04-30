@@ -23,13 +23,3 @@ function validatePassword(form) {
     return true
 }
 
-/*function validateUserNameLength(){
-    var username = document.getElementById("id_username")
-    if (username.length) <= 5{
-        alert("Username should atleast contain more than 5 character")
-    }
-}
-
-function CheckRegistrationForm(this){
-
-}*/
