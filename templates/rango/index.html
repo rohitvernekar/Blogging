@@ -38,7 +38,7 @@
 
    <div>
       <ul class = "nav navbar-nav">
-         <li class = "active"><a href = "#">Home</a></li>
+         <li class = "active"><a href = "/rango/">Home</a></li>
          <li class = "dropdown">
             <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">
                What we do
@@ -74,12 +74,26 @@
     </div>
 
     <div>
+    <table>
+       <tbody>
+       <tr>
+
     {% for user in users%}
-        <ul>
-        <li><a href="/users/{{ user.id }}/{{ user.username }}">{{ user.username }}</a>
-        </li>
-        </ul>
+            <td>
+            <ul>
+            <li><img src="/media/{{user.picture}}" class="img-rounded" alt="Cinque Terre" width="104" height="98"><br>
+            <a href="/users/{{ user.user.id }}/{{ user.user.username }}">{{ user.user.username }}</a><br>
+            <span class="text-muted">Name {{user.user.first_name}} {{user.user.last_name}}</span> <br>
+            <span class="text-muted">Email: {{user.user.email}}</span><br>
+            <span class="text-muted">Address: {{user.address}}</span><br>
+            </li>
+            </ul>
+            </td>
     {% endfor %}
+
+          </tr>
+    <tbody>
+    </table>
     </div>
         <!--<a href="#menu"><div class="bogocircle"><div class="blog">Rohit Blog</div></div></a>
         <a href="#menu"><div class="arrow">Click <br>Here</div> -->

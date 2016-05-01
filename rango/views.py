@@ -6,6 +6,7 @@ from rango.forms import CategoryForm, PageForm
 from rango.forms import UserForm, UserProfileForm, CategoryCommentForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 
 def encode_url(str):
     return str.replace(' ', '_')
@@ -94,17 +95,27 @@ def register(request):
     context = RequestContext(request)
     registered = False
     if request.method == 'POST':
+        import pdb;pdb.set_trace()
         user_form = UserForm(data=request.POST)
-        #profile_form = UserProfileForm(data=request.POST)
-
+        profile_form = UserProfileForm(data=request.POST)
         if user_form.is_valid():
+            try:
+                import pdb;pdb.set_trace()
+                user = user_form.save()
+                user.set_password(user.password)
+                user.save()
+                profile=profile_form.save(commit=False)
+                profile.user = user
+                profile.save()
+            except Exception:
+                user.delete()
+                return render_to_response('rango/register.html',
+                    {'user_form': user_form, 'registered': registered},
+                    context)
 
-            user = user_form.save()
-            user.set_password(user.password)
-            user.save()
             registered = True
             return render_to_response('rango/register.html',
-                {'user_form': user_form, 'registered': registered},
+                {'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
                 context)
 
         else:
@@ -112,10 +123,11 @@ def register(request):
 
     else:
         user_form=UserForm()
+        profile_form = UserProfileForm()
 
     return render_to_response(
             'rango/register.html',
-            {'user_form': user_form,'registered':registered},
+            {'user_form': user_form, 'profile_form': profile_form, 'registered':registered},
             context)
 
 def user_login(request):
@@ -236,7 +248,8 @@ def user_details(request):
 def display_users(request):
     context = RequestContext(request)
     import pdb;pdb.set_trace()
-    user_list = User.objects.order_by('date_joined')[1:20]
+    #user_list = User.objects.order_by('date_joined')[1:20]
+    user_list = UserProfile.objects.order_by('user_id').select_related()[0:20]
     return render_to_response('rango/index.html', {'users': user_list}, context)
 
 

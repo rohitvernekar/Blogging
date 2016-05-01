@@ -16,20 +16,21 @@ class Page(models.Model):
     def __unicode__(self):
         return self.title
 
-
 class UserProfile(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE)
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images',blank=True)
-    Address=models.TextField(default="Enter your address")
-    Liked = models.BooleanField(default=False)
+    address = models.TextField(blank=True)
+    company = models.TextField(blank=True)
+
 
     def __unicode__(self):
         return self.user.username
 
 
 class CategoryComment(models.Model):
-    comment=models.CharField(max_length=100)
+    comment=models.CharField(max_length=120)
     category=models.ForeignKey(Category,null=True)
     title=models.CharField(max_length=100,default="null")
 
